@@ -1,0 +1,211 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+.navbar {
+    background-color: black;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0;
+}    
+
+.ubera a{
+    color: white;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: larger;
+    background-color: black;
+    font-family: sans-serif;
+    display: block;
+    justify-content: flex-start;
+    text-decoration: none;
+}
+
+.body{
+    padding-top: 60px;
+}
+
+.login {
+    color: white;
+    border: hidden;
+    cursor: pointer;
+    font-size: medium;
+    background-color: black;
+    display: inline-block;
+    margin-right: 5px;
+}
+.signup {
+    color: black;
+    border-radius: 50px;
+    background-color: white;
+    font-size: medium;
+    padding: 8px 10px;
+    cursor: pointer;
+    border: hidden;
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.text h1{
+    color: white;
+    font-size: 36px;
+    font-weight: 800;
+    top: 50%;
+    line-height: 44px;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-left: 20px;
+    padding-bottom: 15px;
+}
+
+
+.nav {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding: 12px;
+
+}
+
+.menu a{
+    color: white;
+    font-size: large;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.nav2{
+    padding-top: 50px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.one{
+    width: 300px;
+    padding-top: 50px;
+}
+
+input[type=text] {
+    padding: 15px 80px;
+    text-decoration: none;
+    font-size: larger;
+    white-space: nowrap;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+
+
+}
+
+.t button{
+    padding: 15px 85px;
+    display: grid;
+    justify-content: space-around;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: medium;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    margin-top: 10px;
+    border: hidden;
+    margin-left: 5px;
+}
+
+.onea {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    margin-left: 50px;
+    font-size: medium;
+    padding: 15px;
+
+}
+
+.one p{
+    font-size: 40px;
+    white-space: nowrap;
+    margin-left:  15px;
+    font-size: 40px;
+
+}
+
+.b button{
+    padding: 15px 90px;
+    display: grid;
+    justify-content: space-around;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: medium;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    margin-top: 10px;
+    border: hidden;
+    margin-left: 5px;
+    
+}
+
+.c button{
+    padding: 15px 75px;
+    display: grid;
+    justify-content: space-around;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: medium;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    margin-bottom: 10px;
+    border: hidden;
+    margin-top: 10pxs;
+    margin-left: 5px;
+
+}
+
+.oneb {
+    color: black;
+    cursor: pointer;
+    padding: 15px 58px;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+    font-size: medium;
+
+}
+
+.onec {
+    color: black;
+    cursor: pointer;
+    padding: 15px 58px;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    margin: 15px;
+    font-size: medium;
+}
+
+.oneu {
+    color: black;
+    cursor: pointer;
+    padding: 15px 58px;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    margin: 15px;
+    font-size: medium;
+}
+
+.or {
+    margin-left: 10px;
+}

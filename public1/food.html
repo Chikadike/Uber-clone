@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style4.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uber eats</title>
+</head>
+<body>
+
+   <!-----==========landing page=============-------->
+    
+    <div class="main-container">
+        <h1>Uber eats</h1>
+          
+          <div class="sec-container"> 
+           
+           <ul>
+               <li><a href="contact.html" target="_blank">Contact</a></li>
+               <li><a href="about.html" target="_blank">About</a></li>
+               <li><a href="./images/dishes.jpg" download>Menu</a></li>
+               <li><a href="index.html">Home</a></li>
+           </ul>    
+           <img src="./images/dishes.jpg" alt="menus photo">          
+          </div>
+      </div> 
+    
+
+    <!-----==========Home section=============-------->
+    <section class="home" id="home">
+        <div class="image">
+            <img src="./images/1000_F_255425068_CyDrGsVcu1Bl2SdJ2yXx35Rlp8jyNCCQ.jpg" alt="">
+        </div>
+
+        <div class="image">
+            <img src="./images/maxresdefault.jpg" alt="">
+        </div>
+        
+        <div class="content">
+            <h2>Most Delicious Sharwama For You</h2>
+            <p>Our Sharwama is the best, you will love the taste.</p>
+            <a href="" class="btn">Explore now</a>
+        </div>
+
+        <div class="content">
+            <h2>Grill Fish with a difference</h2>
+            <p> Super tasty Grill Fish with coleslaw.</p>
+            <a href="" class="btn">Explore now</a>
+        </div>
+
+        
+
+    </section>
+    <!-------==========order form=========------->
+    <section class="form-container">
+        <form action="">
+
+            <div class="inputbox">
+                <span>Where</span>
+                <input type="text" placeholder="search places">
+            </div>
+
+            <div class="inputbox">
+                <span>When</span>
+                <input type="date">
+            </div>
+            
+            <div class="inputbox">
+                <span>Time</span>
+                <input type="time">
+            </div>            
+             <input type="submit" value="order now" class="btn">            
+        </form>       
+    </section>
+    <!---=============our menu============--------->
+    <section class="packages" id="packages">
+        <h1 class="heading">Our <span>Menu</span></h1>
+        <div class="box-container">
+            
+            <div class="box">
+                <div class="image">
+                    
+                    <img src="./images/party jellof.jpg" alt="">
+                    <h3>Party Jellof Rice</h3>
+                    <p>Nigerian jellof rice </p>
+                    <a href="" class="btn">Order now</a>
+                    
+                </div>
+
+                <div class="image">
+                    <img src="./images/yam and egg sauce.jpg" alt="">
+                    <h3>Yam and Egg sauce</h3>
+                    <p>Specially egg sauce</p>
+                    <a href="" class="btn">Order now</a>
+                </div>
+
+                <div class="image">
+                    <img src="./images/egusi soup.jpg" alt="">
+                    <h3>Pounded Cassava with Egusi Soup</h3>
+                    <p>locally made native soup</p>
+                    <a href="" class="btn">Order now</a>
+                </div>
+                     
+                <div class="image">
+                    
+                    <img src="./images/fried rice.jpg" alt="">
+                    <h3>Fried Rice</h3>
+                    <p>Made with natural veggies</p>
+                    <a href="" class="btn">Order now</a>                               
+                                       
+                </div>
+
+                <div class="image">
+                    <img src="./images/yam and tomato sauce.jpg" alt="">
+                    <h3>Yam and Plaintain with Pepper Sauce</h3>
+                    <p>Have a taste of goodness</p>
+                    <a href="" class="btn">Order now</a>
+                </div>
+
+                <div class="image">
+                    <img src="./images/rice and stew.jpg" alt="">
+                    <h3>White Rice and Stew</h3>
+                    <p>Taste the goodness</p>
+                    <a href="" class="btn">Order now</a>
+                </div>
+                
+            <section>                
+                
+                  
+        </div>
+    </section>
+
+    <!-----==========contacts=============-------->
+    
+    <section class="client" id="contacts">
+        <div class="Contactus" id="Contactus">
+            <h1 class="title">Contact Us</h1>
+        </div>    
+        <div class="form-wrapper">
+            <div class="form-input">
+                <input type="username" id="username" placeholder="Username" required><br>
+                <input type="email" id="email" placeholder="Email" required><br>
+                <input type="password" id="password" placeholder="Password" required><br>
+                <input type="number" placeholder="Mobile No" required><br>
+                <button class="btn" id="sighUp">Log in</button>
+            </div>
+        </div>   
+
+    </section>
+ <script type="module">
+   // Import the functions you need from the SDKs you need
+   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+   import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+   import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+     
+   // TODO: Add SDKs for Firebase products that you want to use
+   // https://firebase.google.com/docs/web/setup#available-libraries
+           
+   // Your web app's Firebase configuration
+   const firebaseConfig = {
+     apiKey: "AIzaSyAzJwYo0_rthCwrCQZLFyZQABTaSAv6Pkc",
+     authDomain: "portfolio-auth-cacad.firebaseapp.com",
+     projectId: "portfolio-auth-cacad",
+     storageBucket: "portfolio-auth-cacad.appspot.com",
+     messagingSenderId: "188588500517",
+     appId: "1:188588500517:web:071323bb13b4bdab9581cc"
+   };
+            
+   // Initialize Firebase
+   const app = initializeApp(firebaseConfig);
+   const database = getDatabase(app);
+   const auth = getAuth();
+
+ sighUp.addEventListener('click',(e) => {
+
+   var email = document.getElementById('email').value;
+   var password = document.getElementById('password').value;
+   var username = document.getElementById('username').value;
+    
+   createUserWithEmailAndPassword(auth, email, password)
+     .then((userCredential) => {
+      // Signed up 
+       const user = userCredential.user;
+
+       set(ref(database, 'users/' + user.uid),{
+           username: username,
+           email: email
+       })
+       alert('user created');
+       // ...
+     })
+     .catch((error) => {
+       const errorCode = error.code;
+       const errorMessage = error.message;
+
+       alert(errorMessage);
+    // ..
+  });
+
+ });
+ </script>         
+       
+</body>
+</html>
