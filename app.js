@@ -30,6 +30,32 @@ app.get('/api/cars', async (req, res) => {
       res.status(500).json({ error: 'Error fetching cars' });
     }
 });
+
+// API endpoint to handle ride requests
+app.post('/api/request-ride', async (req, res) => {
+    // Extract location and destination from the request body
+    // Store in MongoDB and find available drivers
+    // ...
+  });
+
+  app.post('/api/drivers/register', async (req, res) => {
+    try {
+      const newDriver = new Driver({
+        name: req.body.name,
+        email: req.body.email,
+        phone: req.body.phone,
+        licenseNumber: req.body.licenseNumber,
+        vehicleInfo: req.body.vehicleInfo,
+        isApproved: false, // Initially not approved
+        isAvailable: false // Initially not available
+      });
+      await newDriver.save();
+      res.status(201).json({ message: 'Driver registered successfully, pending approval.' });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+   
   
 
 const PORT = 5000 || process.env.PORT
