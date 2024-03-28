@@ -20,7 +20,7 @@
                 </button>
                 <div class="mobile-nav" id="mobile-nav">
                     <a href="login.html">Ride</a>
-                    <a href="login.html">Drive</a>
+                    <a href="drive.html">Drive</a>
                     <a href="food.html">Uber eats</a>
                     <a href="about.html">About</a>
                 </div>    
@@ -287,6 +287,14 @@ var layer = new H.map.layer.ObjectLayer(clusteredDataProvider);
 
 // Add the layer to the map:
 map.addLayer(layer);
+
+fetch(`https://autocomplete.search.hereapi.com/v1/autocomplete?q=${userInput}&apiKey=YOUR_API_KEY`)
+  .then(response => response.json())
+  .then(data => {
+    // Handle the list of suggestions
+    console.log(data);
+  })
+  .catch(error => console.error('Error:', error));
 
 </script>
 
