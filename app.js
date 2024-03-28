@@ -4,6 +4,9 @@ const express = require('express');
 const paath = require('path');
 const mongoose = require('mongoose');
 const app = express();
+const dbName = 'project0';
+const Mongoclient = require('mongodb').Mongoclient;
+
 
 mongoose.connect('mongodb+srv://dikechika87:Okanumee1987.@cluster0.p3sheud.mongodb.net/?retryWrites=true&w=majority',
 {useNewUrlParser: true, useUnifiedTopology:true,

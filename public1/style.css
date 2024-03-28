@@ -323,7 +323,7 @@ input[type=submit] {
     position: relative;
     margin-right: 20px;
     cursor: pointer;
-    text-decoration: none;
+    
 }
 
 .lasdiv a{
@@ -339,6 +339,7 @@ input[type=submit] {
     margin-right: 10px;
     padding-bottom: 0;
     color: black;
+    text-decoration: none;
     
 }
 
