@@ -4,6 +4,7 @@ const price = document.getElementById("sub");
 const signup = document.getElementById('signup');
 const starte = document.getElementById("get");
 
+
 price.addEventListener("click", () => {
    window.open('./login.html');
 });
@@ -45,3 +46,16 @@ document.getElementById('availabilitySwitch').addEventListener('change', functio
     .then(data => console.log(data))
     .catch(error => console.error('Error:', error));
   });
+
+  app.post('/api/driver/availability', async (req, res) => {
+    const { driverId, available } = req.body;
+    try {
+      // Update the driver's availability in the database
+      await Driver.findByIdAndUpdate(driverId, { isAvailable: available });
+      res.status(200).json({ message: 'Availability updated' });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+  
+  
