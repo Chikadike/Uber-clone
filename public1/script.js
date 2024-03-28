@@ -31,3 +31,17 @@ signup.addEventListener('click', function(){
     window.location.href = './login.html';
 });
 
+document.getElementById('availabilitySwitch').addEventListener('change', function(event) {
+    const isAvailable = event.target.checked;
+    // Send the new availability status to the backend
+    fetch('/api/driver/availability', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ available: isAvailable }),
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
+  });
