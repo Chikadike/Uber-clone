@@ -311,7 +311,7 @@ input[type=submit] {
     margin: auto;
 }
 
-.lasdiv a {
+.lasdivb {
     background-color: black;
     color: white;
     font-size: 30px;
@@ -326,7 +326,7 @@ input[type=submit] {
     text-decoration: none;
 }
 
-.lasdiv p{
+.lasdiv a{
     font-size: 25px;
     font-weight: 700;
     font-family: system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -338,6 +338,7 @@ input[type=submit] {
     align-content: center;
     margin-right: 10px;
     padding-bottom: 0;
+    color: black;
     
 }
 
