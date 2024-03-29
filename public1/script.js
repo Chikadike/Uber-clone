@@ -3,10 +3,10 @@ const menu = document.querySelector(".mobile-nav");
 const price = document.getElementById("sub");
 const signup = document.getElementById('signup');
 const starte = document.getElementById("get");
-const login = document.getElementById('login');
+const button = document.getElementById('login');
 
 
-login.addEventListener("click", () => {
+button.addEventListener("click", () => {
     showalert('driver added successfully')
 });
 price.addEventListener("click", () => {
