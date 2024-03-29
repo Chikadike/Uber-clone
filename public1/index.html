@@ -288,6 +288,8 @@ var layer = new H.map.layer.ObjectLayer(clusteredDataProvider);
 // Add the layer to the map:
 map.addLayer(layer);
 
+const userInput = 'Anambra';
+const apikey = 'd9L7de7wbZ64KHkYbulk_YWKhvQa7-ujBtGKyd5dDeU';
 fetch(`https://autocomplete.search.hereapi.com/v1/autocomplete?q=${Anambra}&apiKey=d9L7de7wbZ64KHkYbulk_YWKhvQa7-ujBtGKyd5dDeU`)
   .then(response => response.json())
   .then(data => {

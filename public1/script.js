@@ -7,7 +7,7 @@ const login = document.getElementById('login');
 
 
 login.addEventListener("click", () => {
-    alert('driver added successfully')
+    showalert('driver added successfully')
 });
 price.addEventListener("click", () => {
    window.open('./login.html');
