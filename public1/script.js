@@ -3,7 +3,7 @@ const menu = document.querySelector(".mobile-nav");
 const price = document.getElementById("sub");
 const signup = document.getElementById('signup');
 const starte = document.getElementById("get");
-const login = document.getElementById(log-in);
+const login = document.getElementById('login');
 
 
 login.addEventListener("click", () => {
