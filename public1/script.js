@@ -1,17 +1,13 @@
 const burger = document.querySelector(".hamburger");
 const menu = document.querySelector(".mobile-nav");
-const price = document.getElementById("sub");
 const signup = document.getElementById('signup');
 const starte = document.getElementById("get");
-const button = document.getElementById('login');
+//const button = document.getElementById('login');
 
 
-button.addEventListener("click", () => {
-    showalert('driver added successfully')
-});
-price.addEventListener("click", () => {
-   window.open('./login.html');
-});
+//button.addEventListener("click", () => {
+   // window.alert('driver added successfully');
+//})
 
 starte.addEventListener("click",  () =>{
     window.open('./buzins.html');
@@ -36,30 +32,30 @@ signup.addEventListener('click', function(){
     window.location.href = './login.html';
 });
 
-document.getElementById('availabilitySwitch').addEventListener('change', function(event) {
-    const isAvailable = event.target.checked;
+//document.getElementById('availabilitySwitch').addEventListener('change', function(event) {
+   // const isAvailable = event.target.checked;
     // Send the new availability status to the backend
-    fetch('/api/driver/availability', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ available: isAvailable }),
-    })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error('Error:', error));
-  });
+    //fetch('/api/driver/availability', {
+      //method: 'POST',
+      //headers: {
+        //'Content-Type': 'application/json',
+      ////},
+      //body: JSON.stringify({ available: isAvailable }),
+    //})
+    //.then(response => response.json())
+   // .then(data => console.log(data))
+    //.catch(error => console.error('Error:', error));
+  //});
 
-  app.post('/api/driver/availability', async (req, res) => {
-    const { driverId, available } = req.body;
-    try {
+ // app.post('/api/driver/availability', async (req, res) => {
+   // const { driverId, available } = req.body;
+    //try {
       // Update the driver's availability in the database
-      await Driver.findByIdAndUpdate(driverId, { isAvailable: available });
-      res.status(200).json({ message: 'Availability updated' });
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
-  });
+      //await Driver.findByIdAndUpdate(driverId, { isAvailable: available });
+      //res.status(200).json({ message: 'Availability updated' });
+    //} catch (error) {
+      //res.status(500).json({ message: error.message });
+   // }
+ // });
   
   

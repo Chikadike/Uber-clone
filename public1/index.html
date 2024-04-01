@@ -34,7 +34,7 @@
                 <form>
                     <input type="text" id="pickup"placeholder="&#x2B24; &ensp;Enter location"><br>
                     <input type="text" id="destination" placeholder="&#11200; &ensp;Enter destination"><br>
-                    <input type="submit" id="sub" value="Submit"><br>
+                    <button id="sub" onclick="calculateRoute()">Get Route</button><br>
                 </form>
                 </div>
                 <div class="cars">
@@ -122,7 +122,7 @@
                 </div>
             </div> 
             <div class="icon">     
-                <a href="www.facebook.com" target="new" class="fa fa-facebook"></a>
+                <a href="#"class="fa fa-facebook"></a>
                 <a href="#" class="fa fa-youtube"></a>
                 <a href="#" class="fa fa-linkedin"></a>
                 <a href="#" class="fa fa-instagram"></a>
@@ -183,6 +183,7 @@ const platform = new H.service.Platform({
 
 // Default options for the base layers that are used to render a map
 var defaultLayers = platform.createDefaultLayers();
+const routingService = platform.getRoutingService(null, 8);
 
 // Initialize the map
 var map = new H.Map(document.getElementById('map'), 
@@ -200,28 +201,23 @@ var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 
 // Create the default UI components
 var ui = H.ui.UI.createDefault(map, defaultLayers);
-
-var group = new H.map.Group();
-map.addObject(group);
+const group = new H.map.Group();
 
 group.addEventListener('tap', function (evt) {
-            
-    var bubble = new H.ui.InfoBubble(evt.target.getGeometry(), {
+    // This line adds an event listener to the 'group' object for the 'tap' event.
+    // When a 'tap' event is detected, the following function is executed.        
+var bubble = new H.ui.InfoBubble(evt.target.getGeometry(), {
+    // This creates a new InfoBubble, which is a UI element to show information on the map.
+    // 'evt.target.getGeometry()' gets the geographical coordinates where the tap occurred.    
         content: evt.target.getData()
     });
     
     ui.addBubble(bubble);
+ // This adds the newly created InfoBubble to the UI so it can be displayed on the map.
 }, false);
 
-// Add markers for pickup and destination (you can customize these)
-const pickupMarker = new H.map.Marker({ lat: 6.22089970, lng: 6.93695590 });
-const destinationMarker = new H.map.Marker({ lat: 6.5244, lng: 3.3792 }); // Lagos, Nigeria
-
-    map.addObject(pickupMarker);
-    map.addObject(destinationMarker);
-
-// Get an instance of the routing service version 8:
-var router = platform.getRoutingService(null, 8);
+// Get an instance of the routing service
+var router = platform.getRoutingService();
 
 
 // Create the parameters for the routing request:
@@ -232,44 +228,79 @@ var routingParameters = {
     'traffic': 'enabled',
     'alternatives': 3,
     'avoid': 'tollroads',
-    'return': 'polyline'
+    'return': 'polyline',
+    'waypoint0': 'lat: 6.22089970, lng: 6.93695590',
+    'waypoint1': 'lat: 6.5244,lng: 3.3792',
+    'representation': 'display'
 };
 
-// Define a callback function to process the routing response:
+// Define a function that returns a Promise which resolves with the routing result
+function getRoutingResult() {
+  return new Promise((resolve, reject) => {
+    // Simulate an asynchronous API call that fetches routing data
+    setTimeout(() => {
+      const result = { 
+        pickup: { lat: 6.22089970, lng: 6.93695590 }, // Starting point coordinates (Paris)
+        destination: { lat: 6.5244, lng:  3.3792}, // Destination coordinates (Los Angeles)
+      };
+      resolve(result); // Resolve the Promise with the routing result
+    }, 1000); // Assume it takes 1 second to get the result
+  });
+}
 var onResult = function(result) {
-    // ensure that at least one route was found
+// ensure that at least one route was found
     if (result.routes.length) {
         result.routes[0].sections.forEach((section) => {
-            // Create a linestring to use as a point source for the route line
-            let linestring = H.geo.LineString.fromFlexiblePolyline(section.polyline);
+// Create a linestring to use as a point source for the route line
+let linestring = H.geo.LineString.fromFlexiblePolyline(section.polyline);
 
-            // Create a polyline to display the route:
-            let routeLine = new H.map.Polyline(linestring, {
-                style: { strokeColor: 'navy', lineWidth: 3 }
-            });
+// Create a polyline to display the route:
+let routeLine = new H.map.Polyline(linestring, {
+    style: { strokeColor: 'navy', lineWidth: 3 }
+    });
+// Add markers for pickup and destination
+const pickupMarker = new H.map.Marker({ lat: 6.22089970, lng: 6.93695590 });
+const destinationMarker = new H.map.Marker({ lat: 6.5244, lng: 3.3792 }); // Lagos, Nigeria
 
-            // Create a marker for the start point:
-            let startMarker = new H.map.Marker(section.departure.place.location);
+// Function to add a polyline to the map
+function addPolylineToMap(map) {
+    // Define the points of the polyline
+var lineString = new H.geo.LineString();
+    lineString.pushPoint({lat: 6.22089970, lng: 6.93695590});
+    lineString.pushPoint({lat: 6.5244, lng: 3.3792});
 
-            // Create a marker for the end point:
-            let endMarker = new H.map.Marker(section.arrival.place.location);
+// Create the polyline with the lineString and a style
+var polyline = new H.map.Polyline(lineString, {
+    style: { strokeColor: 'navy', lineWidth: 3 }
+});
+map.addObject(routeLine);
 
-            // Add the route polyline and the two markers to the map:
-            map.addObjects([routeLine, startMarker, endMarker]);
+ // Add the polyline and markers to the map
+group.addObject(pickupMarker);
+group.addObject(destMarker);
+group.addObject(routeLine);
+
+}
 
         });
     }
 };
 
-router.calculateRoute(routingParameters, onResult, function(error) {
-    alert(error.message);
+router.calculateRoute(routingParameters, onResult, function(result) {
+    if (result.response.route[0]) {
+    // Process the route data (polyline, instructions, etc.)
+    const route = result.response.route[0];
+    // Display the route on the map
+    const routeLine = new H.map.Polyline(route.shape, { style: { strokeColor: 'blue', lineWidth: 5 } });
+    map.addObject(routeLine);
+  }
 });
 
 //prepare a data set which you want to be a part of the cliuster
 const dataPoints = [
     new H.clustering.DataPoint(6.5244, 3.3792), // Lagos
     new H.clustering.DataPoint(9.0579, 7.4951), // Abuja
-    new H.clustering.DataPoint(10.3092, 13.1943) // Kano
+    new H.clustering.DataPoint(10.3092, 13.1943) // Kanos
 ];
 
 document.getElementById('sub').addEventListener('submit', function (event) {
@@ -296,7 +327,7 @@ fetch(`https://autocomplete.search.hereapi.com/v1/autocomplete?q=${userInput}&ap
     // Handle the list of suggestions
     console.log(data);
   })
-  .catch(error => console.error('Error:', error));
+  .catch(error => console.error('Error:'));
 
 </script>
 
