@@ -6,8 +6,8 @@ const driver = require('../models/driver');// import driver model
 // Route to create a new driver
 router.post('/registerdriver', async (req, res) => {
     try {
-        const { name, car } = req.body;
-        const driver = new Driver({ name, car });
+        const { name, email, phone, licencenumber } = req.body;
+        const driver = new Driver({ name, email, phone, licencenumber});
         await driver.save();
         res.status(201).json({ message: 'Driver registered successfully' });
     } catch (error) {

@@ -96,7 +96,7 @@
     margin-right: 10px;
 }
 
-.text h1{
+.text a{
     color: white;
     font-size: 36px;
     font-weight: 800;
@@ -123,4 +123,12 @@
     font-size: larger;
     text-decoration: none;
     margin-right: 10px;
+}
+
+.divs a {
+    color: black;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 35px;
+    font-weight: 700;
 }

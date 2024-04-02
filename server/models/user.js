@@ -38,8 +38,10 @@ userSocket.addEventListener('message', (event) => {
     const data = JSON.parse(event.data);
     if (data.type === 'rideAccepted') {
         // Display a message to the user that their ride has been accepted
+        console.log('Your ride request has been accepted!');
     } else if (data.type === 'rideRejected') {
         // Display a message that the ride request was rejected
+        console.log('Sorry, your ride request was rejected.');
     }
 });
 

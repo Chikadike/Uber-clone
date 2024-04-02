@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><Sign-up></title>
-    <link rel="stylesheet" href="style3.css">
+    <link rel="stylesheet" href="style3.css">    
     <style>
     .navb {
         text-align: center;
@@ -26,7 +26,7 @@
         
     }
 
-    .nav2{
+    .nav5{
     padding-top: 60px;
     content: '';
     clear: both;
@@ -47,12 +47,14 @@
         font-weight: bolder;
     }
 
-    input[type=number] {
+    input[type=number], [type=email], [type=password],[type=text] {
         font-size: large;
         font-weight: bolder;
         padding-top: 15px;
         padding-bottom: 10px;
         border-radius: 5px;
+        margin-left: 20px;
+        padding-right: 150px;
     }
 
     input[type=checkbox] {
@@ -74,11 +76,27 @@
         
     }
 
+    .navbar {
+        position: fixed;
+    }
+
 </style>
 </head>
 <body>
     <div class="container">
-        <div class="navbar">
+        <div class="container">
+            <div class="navbar">
+                <div class="nav">
+                    <div class="ubera"><a href="about.html">Uber</a></div>
+                    <button class="login">Log in</button>
+                    <button class="signup" id="signup">Sign up</button>
+                    <div class="menu"> <a href="#menu">&#9776;</a></div>
+            
+                </div>
+    
+            </div>
+
+        <div class="navbar2">
             <div class="nav">
                 <div class="ubera"><a href="about.html">Uber</a></div>
                 <button class="login">Log in</button>
@@ -87,7 +105,7 @@
         
             </div>
         </div>
-        <div class="nav2">
+        <div class="nav5">
             <div class="nava">
                 <h1>Get there <br> Your day belongs to you</h1>
                 <img src="./images/driver.jpeg" style="width: 100%">   
@@ -98,13 +116,14 @@
                     <form>
                         <input type="text" id="email1" class="email" placeholder="First Name"><br>
                         <input type="text"  id="password1" placeholder="Last Name"><br>
-                        <input type="number" id="number" placeholder="Phone">
-                        <input type="number" id="email1" class="email" placeholder="LicenseNumber"><br>
-                        <input type="text" type="text" id="password1" placeholder="vehicleInfo"><br><br>
+                        <input type="number" id="number" placeholder="Phone"><br><br>
+                        <input type="email" id="email1" class="email" placeholder="Email"><br><br>
+                        <input type="password" id="email1" class="email" placeholder="Password"><br><br>
+                        <input type="number" type="text" id="password1" placeholder="licensenumber"><br><br>
                         <input type="checkbox" id="checkbox1">
                         <label type for="available" id="availabilitySwitch">Available</label>
                         <br><br>
-                        <button class="submit" id="login">Log in</button>
+                        <button class="submit" id="Register">Log in</button>
                     </form>
                 </div>                
             </div>
@@ -112,6 +131,31 @@
         </div>
 
     </div>
- <script src="script.js"></script>       
-</body>
+ <script type="module">
+    // Import the functions  from the SDKs 
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+    import { getDatabase } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+    
+    // TODO: Adding SDKs for Firebase products needed
+    // https://firebase.google.com/docs/web/setup#available-libraries
+        
+    // web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyAzJwYo0_rthCwrCQZLFyZQABTaSAv6Pkc",
+        authDomain: "portfolio-auth-cacad.firebaseapp.com",
+        projectId: "portfolio-auth-cacad",
+        storageBucket: "portfolio-auth-cacad.appspot.com",
+        messagingSenderId: "188588500517",
+        appId: "1:188588500517:web:071323bb13b4bdab9581cc"
+    };
+        
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
+    
+ </script>   
+ <script src="script.js"></script>  
+</body>      
 </html>

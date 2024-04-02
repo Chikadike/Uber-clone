@@ -4,12 +4,12 @@ const User = require('../models/user'); // Importing User model
 
 // Handle user login
 router.post('/login', async (req, res) => {
-    const { email, password } = req.body;
+    const { Username,Email, Password } = req.body;
 
     try {
         // Validating user credentials 
         const user = await User.findOne({ email });
-        if (!user || user.password !== password) {
+        if (!user || user.Password !== Password) {
             return res.status(401).send('Invalid credentials');
         }
 

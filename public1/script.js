@@ -2,12 +2,12 @@ const burger = document.querySelector(".hamburger");
 const menu = document.querySelector(".mobile-nav");
 const signup = document.getElementById('signup');
 const starte = document.getElementById("get");
-//const button = document.getElementById('login');
+const button = document.getElementById('sign');
 
 
-//button.addEventListener("click", () => {
-   // window.alert('driver added successfully');
-//})
+button.addEventListener("click", () => {
+   window.open('./signin.html');
+})
 
 starte.addEventListener("click",  () =>{
     window.open('./buzins.html');
