@@ -58,4 +58,43 @@ signup.addEventListener('click', function(){
    // }
  // });
   
+ // When the user clicks "Request Ride"
+function requestRide(pickup, destination) {
+  const rideRequest = {
+      type: 'requestRide',
+      pickup,
+      destination,
+  };
+  userSocket.send(JSON.stringify(rideRequest));
+}
+
+// Handle responses from the server
+userSocket.addEventListener('message', (event) => {
+  const data = JSON.parse(event.data);
+  if (data.type === 'rideAccepted') {
+      // Display a message to the user that their ride has been accepted
+  } else if (data.type === 'rideRejected') {
+      // Display a message that the ride request was rejected
+  }
+});
+
+// When a driver receives a ride request
+driverSocket.addEventListener('message', (event) => {
+  const data = JSON.parse(event.data);
+  if (data.type === 'newRideRequest') {
+      // Display the ride details (pickup, destination) to the driver
+      // Allow the driver to accept or reject the request
+      // Example: Show a modal with ride details and buttons for accept/reject
+  }
+});
+
+// When the driver responds (accepts or rejects)
+function respondToRideRequest(rideId, accepted) {
+  const response = {
+      type: 'driverResponse',
+      rideId, // You'll need to track ride IDs
+      accepted,
+  };
+  driverSocket.send(JSON.stringify(response));
+}
   

@@ -9,7 +9,9 @@
    
 </head>
 <body>
-    <div class="container">
+    <div class="container"> <!------creating wrapper container---->
+
+         <!------creating navigation container---->        
         <div class="navbar">
             <div class="nav">
                 <div class="ubera"><a href="about.html">Uber</a></div>
@@ -30,17 +32,18 @@
                 <h1>Go anywhere with Uber</h1>
                 <h3 class="htre">Request a ride, hop in, and go.</h3>
             </div>
+            <!------input form container---->
             <div class="locationform">
                 <form>
                     <input type="text" id="pickup"placeholder="&#x2B24; &ensp;Enter location"><br>
                     <input type="text" id="destination" placeholder="&#11200; &ensp;Enter destination"><br>
-                    <button id="sub" onclick="calculateRoute()">Get Route</button><br>
+                    <button id="sub", onclick="calculateRoute()">Book ride</button><br>
                 </form>
                 </div>
                 <div class="cars">
                     <a href="car-list.html">View available cars</a>
                 </div>
-
+             <!------creating map container----> 
                 <div id="map"
                 style="width: 100%; height: 400px;">
                 </div>
@@ -50,7 +53,7 @@
                 <img src="./images/aligt.jpg" alt="Ride with Uber">
             </div>    
 
-        
+        <!------second container---->
     
         <div class="nav2">
             <h1>Drive when you want, make what you need</h1>
@@ -64,7 +67,7 @@
             
 
         </div>
-
+        <!------creating third container---->
         <div class="nav3">
             <h1>The Uber you know, reimagined for<br>business</h1>
             <p>Uber for Business is a platform for managing global rides and meals, and local deliveries, for companies of any size.</p>
@@ -76,7 +79,7 @@
 
             
         </div>
-
+        <!------creating fourth container---->
         <div class="nav4">
             <h1>It’s easier in the apps</h1>
             <div class="lasdiv"> 
@@ -89,7 +92,7 @@
             </div><br><br><br><br>
             
         </div>
-
+        <!------creating fifth container---->
         <div class="nav5">
             <div class="lasdiv2"><p>Uber</p>
             <a href="#">Visit Help Center</a>
@@ -140,18 +143,18 @@
         </div> 
 
     </div>
-
+                    <!------creating firebase authentication script---->
 
  <script type="module">
-   // Import the functions you need from the SDKs you need
+   // Import the functions  from the SDKs 
    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
    import { getDatabase } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
 
-   // TODO: Add SDKs for Firebase products that you want to use
+   // TODO: Adding SDKs for Firebase products needed
    // https://firebase.google.com/docs/web/setup#available-libraries
       
-   // Your web app's Firebase configuration
+   // web app's Firebase configuration
    const firebaseConfig = {
      apiKey: "AIzaSyAzJwYo0_rthCwrCQZLFyZQABTaSAv6Pkc",
      authDomain: "portfolio-auth-cacad.firebaseapp.com",
@@ -167,7 +170,7 @@
    const auth = getAuth();
 
  </script>
-
+                <!------Here Map javascript container---->
     
  <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
  <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
@@ -204,8 +207,22 @@ var ui = H.ui.UI.createDefault(map, defaultLayers);
 const group = new H.map.Group();
 
 group.addEventListener('tap', function (evt) {
-    // This line adds an event listener to the 'group' object for the 'tap' event.
-    // When a 'tap' event is detected, the following function is executed.        
+    // This function will be executed when a 'tap' event is detected on the 'group'.
+    // 'evt' contains information about the event, including the target object (marker, polyline, etc.).
+
+        if (evt.target instanceof H.map.Marker) {
+        const marker = evt.target;
+        // Handle marker tap (e.g., show details, open popup, etc.)
+        console.log('Marker tapped:', marker.getData()); 
+    }
+
+    // Example: Check if the tapped object is a polyline
+    if (evt.target instanceof H.map.Polyline) {
+        const polyline = evt.target;
+        // Handle polyline tap (e.g., highlight, show route details, etc.)
+        console.log('Polyline tapped:', polyline.getGeometry()); 
+    }
+});        
 var bubble = new H.ui.InfoBubble(evt.target.getGeometry(), {
     // This creates a new InfoBubble, which is a UI element to show information on the map.
     // 'evt.target.getGeometry()' gets the geographical coordinates where the tap occurred.    
@@ -214,8 +231,12 @@ var bubble = new H.ui.InfoBubble(evt.target.getGeometry(), {
     
     ui.addBubble(bubble);
  // This adds the newly created InfoBubble to the UI so it can be displayed on the map.
-}, false);
-
+document.getElementById('sub').addEventListener('submit', function (event) {
+event.preventDefault(); // Prevent form submission
+});
+// Get user input values
+const pickupAddress = document.getElementById('pickup').value;
+const destinationAddress = document.getElementById('destination').value;
 // Get an instance of the routing service
 var router = platform.getRoutingService();
 
@@ -224,13 +245,12 @@ var router = platform.getRoutingService();
 var routingParameters = {
     'routingMode': 'fast',
     'transportMode': 'car',
-    'departureTime':'2024-03-27T08:00:00',
     'traffic': 'enabled',
     'alternatives': 3,
     'avoid': 'tollroads',
     'return': 'polyline',
-    'waypoint0': 'lat: 6.22089970, lng: 6.93695590',
-    'waypoint1': 'lat: 6.5244,lng: 3.3792',
+    'waypoint0': `geo!${pickup}`,
+    'waypoint1': `geo!${destination}`,
     'representation': 'display'
 };
 
@@ -294,42 +314,8 @@ router.calculateRoute(routingParameters, onResult, function(result) {
     const routeLine = new H.map.Polyline(route.shape, { style: { strokeColor: 'blue', lineWidth: 5 } });
     map.addObject(routeLine);
   }
-});
-
-//prepare a data set which you want to be a part of the cliuster
-const dataPoints = [
-    new H.clustering.DataPoint(6.5244, 3.3792), // Lagos
-    new H.clustering.DataPoint(9.0579, 7.4951), // Abuja
-    new H.clustering.DataPoint(10.3092, 13.1943) // Kanos
-];
-
-document.getElementById('sub').addEventListener('submit', function (event) {
-event.preventDefault(); // Prevent form submission
-});
-// Get user input values
-const pickupAddress = document.getElementById('pickup').value;
-const destinationAddress = document.getElementById('destination').value;
-
-//create a data provider
-var clusteredDataProvider = new H.clustering.Provider(dataPoints);
-
-// Create a layer that includes the data provider and its data points: 
-var layer = new H.map.layer.ObjectLayer(clusteredDataProvider);
-
-// Add the layer to the map:
-map.addLayer(layer);
-
-const userInput = 'Anambra';
-const apikey = 'd9L7de7wbZ64KHkYbulk_YWKhvQa7-ujBtGKyd5dDeU';
-fetch(`https://autocomplete.search.hereapi.com/v1/autocomplete?q=${userInput}&apiKey=d9L7de7wbZ64KHkYbulk_YWKhvQa7-ujBtGKyd5dDeU`)
-  .then(response => response.json())
-  .then(data => {
-    // Handle the list of suggestions
-    console.log(data);
-  })
-  .catch(error => console.error('Error:'));
-
-</script>
+})
+ </script>
 
  <script src="script.js"></script>
 </body>

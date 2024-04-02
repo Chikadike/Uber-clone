@@ -178,7 +178,7 @@ input[type=text] {
     color: red;
 }
 
-input[type=submit] {
+#sub{
     padding-top: 15px;
     padding-bottom: 15px;
     padding-left: 25px;
@@ -193,6 +193,7 @@ input[type=submit] {
 #sub {
     font-size: medium;
     color: black;
+    background-color: white;
 }
 
 .cars {

@@ -125,9 +125,9 @@ input[type=text] {
     font-family: Arial, Helvetica, sans-serif;
     border-radius: 10px;
     margin-bottom: 15px;
-    margin-left: 50px;
+    margin-left: 80px;
     font-size: medium;
-    padding: 15px;
+    padding: 15px 50px;
 
 }
 

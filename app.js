@@ -1,27 +1,27 @@
 require('dotenv').config();
 
-const express = require('express');
-const paath = require('path');
 const WebSocket = require('ws');
+const paath = require('path');
+const express = require('express');
 const http = require('http');
 const mongoose = require('mongoose');
 const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server});
 
-// Store connected clients (drivers and passengers)
-const clients = new Map();
+//Store connected clients (drivers and passengers)
+ const clients = new Map();
 
 wss.on('connection', (ws) => {
   // Extract user type (driver or passenger) from query parameters
-  const userType = ws.upgradeReq.url.includes('driver') ? 'driver' : 'passenger';
+ const userType = ws.upgradeReq.url.includes('driver') ? 'driver' : 'passenger';
 
   // Store the WebSocket connection in the clients map
   clients.set(ws, userType);
 
-  // Handle messages from clients
-  ws.on('message', (message) =>{
-    console.log(`Received from ${userType}: ${message}`);
+   //Handle messages from clients
+ws.on('message', (message) =>{
+   console.log(`Received from ${userType}: ${message}`);
   // Broadcast the message to other connected clients
   broadcastMessage(message, ws);
 });
@@ -51,18 +51,37 @@ mongoose.connect('mongodb+srv://dikechika87:Okanumee1987.@cluster0.p3sheud.mongo
 {useNewUrlParser: true, useUnifiedTopology:true,
 });
 
-DB_STRING('mongodb+srv://dikechika87:Okanumee1987.@cluster0.oxdey6v.mongodb.net/<dbname>?retryWrites=true&w=majority'),
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', () => {
+  console.log('Connected to MongoDB Atlas');
+});
 
+//const userRoutes = require('./server/routes/userRoutes');
+// const driverRoutes = require('./server/routes/driverRoutes');
+//const carRoutes = require('./server/routes/carRoutes');
 
+//app.use('/users', userRoutes);
+// app.use('/drivers', driverRoutes);
+///app.use('/cars', carRoutes);
+
+// Car schema
+const carSchema = new mongoose.Schema({
+  model: String,
+  price: Number,
+  availability: Boolean,
+});
+
+const Car = mongoose.model('Car', carSchema);
 // API route to get all cars
-//app.get('/api/cars', async (req, res) => {
-//    try {
-  //    const cars = await Car.find();
-    //  res.json(cars);
-    //} catch (error) {
-      //res.status(500).json({ error: 'Error fetching cars' });
-    //}
-//});
+app.get('/api/cars', async (req, res) => {
+    try {
+      const cars = await Car.find();
+      res.json(cars);
+    } catch (error) {
+      res.status(500).json({ error: 'Error fetching cars' });
+    }
+});
 
 // API endpoint to handle ride requests
 app.post('/api/request-ride', async (req, res) => {

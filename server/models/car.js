@@ -1,3 +1,7 @@
+const mongoose = require('mongoose');
+const WebSocket = require('ws');
+const driverSocket = new WebSocket('ws://localhost:5000');
+
 // Car schema
 const carSchema = new mongoose.Schema({
     model: String,
