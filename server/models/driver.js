@@ -9,8 +9,8 @@ const Socket = new WebSocket("ws://localhost:5000");
 const driverSchema = new mongoose.Schema({
   name: String,
   email: String,
-  phone: number,
-  licenseNumber: number,
+  phone: String,
+  licenseNumber: String,
   isApproved: Boolean,
   isAvailable: Boolean
 

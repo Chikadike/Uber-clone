@@ -9,10 +9,12 @@ const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server});
 
+
+
 //Store connected clients (drivers and passengers)
  const clients = new Map();
-
 wss.on('connection', (ws) => {
+  console.log('Client connected');
   // Extract user type (driver or passenger) from query parameters
  const userType = ws.upgradeReq.url.includes('driver') ? 'driver' : 'passenger';
 
@@ -58,11 +60,11 @@ db.once('open', () => {
 });
 
 //const userRoutes = require('./server/routes/userRoutes');
-// const driverRoutes = require('./server/routes/driverRoutes');
+//const driverRoutes = require('./server/routes/driverRoutes');
 //const carRoutes = require('./server/routes/carRoutes');
 
 //app.use('/users', userRoutes);
-// app.use('/drivers', driverRoutes);
+//app.use('/drivers', driverRoutes);
 ///app.use('/cars', carRoutes);
 
 // Car schema
@@ -85,10 +87,32 @@ app.get('/api/cars', async (req, res) => {
 
 // API endpoint to handle ride requests
 app.post('/api/request-ride', async (req, res) => {
-    // Extract location and destination from the request body
-    // Store in MongoDB and find available drivers
-    // ...
-  });
+  try {
+    const { location, destination } = req.body;
+
+    // Assuming you have a MongoDB connection and a collection named "rides"
+    const rideData = {
+      location,
+      destination,
+      timestamp: new Date(),
+    };
+
+    // Store the ride data in MongoDB
+    await db.collection('rides').insertOne(rideData);
+
+    // Find available drivers (you'll need to implement this logic)
+    const availableDrivers = await findAvailableDrivers(location);
+
+    // Respond with success message and available drivers
+    res.status(200).json({
+      message: 'Ride request successful!',
+      availableDrivers,
+    });
+  } catch (error) {
+    console.error('Error processing ride request:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
   app.post('/api/drivers/register', async (req, res) => {
     try {

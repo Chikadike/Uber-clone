@@ -8,7 +8,7 @@ router.post('/login', async (req, res) => {
 
     try {
         // Validating user credentials 
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ Email });
         if (!user || user.Password !== Password) {
             return res.status(401).send('Invalid credentials');
         }
