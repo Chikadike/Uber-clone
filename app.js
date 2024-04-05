@@ -1,7 +1,7 @@
 require('dotenv').config();
 
+const path = require('path');
 const WebSocket = require('ws');
-const paath = require('path');
 const express = require('express');
 const http = require('http');
 const mongoose = require('mongoose');
@@ -67,30 +67,12 @@ db.once('open', () => {
 //app.use('/drivers', driverRoutes);
 ///app.use('/cars', carRoutes);
 
-// Car schema
-const carSchema = new mongoose.Schema({
-  model: String,
-  price: Number,
-  availability: Boolean,
-});
-
-const Car = mongoose.model('Car', carSchema);
-// API route to get all cars
-app.get('/api/cars', async (req, res) => {
-    try {
-      const cars = await Car.find();
-      res.json(cars);
-    } catch (error) {
-      res.status(500).json({ error: 'Error fetching cars' });
-    }
-});
-
 // API endpoint to handle ride requests
 app.post('/api/request-ride', async (req, res) => {
   try {
     const { location, destination } = req.body;
 
-    // Assuming you have a MongoDB connection and a collection named "rides"
+    // rides data
     const rideData = {
       location,
       destination,
@@ -100,7 +82,7 @@ app.post('/api/request-ride', async (req, res) => {
     // Store the ride data in MongoDB
     await db.collection('rides').insertOne(rideData);
 
-    // Find available drivers (you'll need to implement this logic)
+    // Find available drivers
     const availableDrivers = await findAvailableDrivers(location);
 
     // Respond with success message and available drivers
@@ -113,25 +95,6 @@ app.post('/api/request-ride', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-
-  app.post('/api/drivers/register', async (req, res) => {
-    try {
-      const newDriver = new Driver({
-        name: req.body.name,
-        email: req.body.email,
-        phone: req.body.phone,
-        licenseNumber: req.body.licenseNumber,
-        vehicleInfo: req.body.vehicleInfo,
-        isApproved: false, // Initially not approved
-        isAvailable: false // Initially not available
-      });
-      await newDriver.save();
-      res.status(201).json({ message: 'Driver registered successfully, pending approval.' });
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
-  });
-   
   
 
 const PORT = 5000 || process.env.PORT

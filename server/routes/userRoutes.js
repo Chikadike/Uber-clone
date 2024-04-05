@@ -3,6 +3,12 @@ const router = express.Router();
 const User = require('../models/user'); // Importing User model
 
 // Handle user login
+router.get('/login', (req, res) => {
+    // Render the user's login page
+    res.render('profile', { user: req.user });
+});
+
+
 router.post('/login', async (req, res) => {
     const { Username,Email, Password } = req.body;
 
@@ -21,12 +27,6 @@ router.post('/login', async (req, res) => {
         console.error('Error during login:', error);
         res.status(500).send('Internal server error');
     }
-});
-
-// Handle user profile page
-router.get('/profile', (req, res) => {
-    // Render the user's profile page
-    // Example: res.render('profile', { user: req.user });
 });
 
 // Route to create a new user

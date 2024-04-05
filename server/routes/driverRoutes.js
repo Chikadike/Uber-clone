@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 const driver = require('../models/driver');// import driver model
 
-
+router.get("/registerdriver", function(req, res) {
+    res.sendFile(path.join(__dirname, 'public1/registerdriver.html'));
+})
 // Route to create a new driver
 router.post('/registerdriver', async (req, res) => {
     try {

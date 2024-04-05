@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const WebSocket = require('ws');
 const userSocket = new WebSocket('ws://localhost:5000');
+
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -23,6 +24,10 @@ const userSchema = new mongoose.Schema({
 
 const user = mongoose.model('user', userSchema);
 
+function displayMessage(message) {
+  console.log(message);
+}
+
 // When the user clicks "Request Ride"
 function requestRide(pickup, destination) {
     const rideRequest = {
@@ -38,10 +43,10 @@ userSocket.addEventListener('message', (event) => {
     const data = JSON.parse(event.data);
     if (data.type === 'rideAccepted') {
         // Display a message to the user that their ride has been accepted
-        console.log('Your ride request has been accepted!');
+        displayMessage('Your ride request has been accepted!');
     } else if (data.type === 'rideRejected') {
         // Display a message that the ride request was rejected
-        console.log('Sorry, your ride request was rejected.');
+        displayMessage('Sorry, your ride request was rejected.');
     }
 });
 
